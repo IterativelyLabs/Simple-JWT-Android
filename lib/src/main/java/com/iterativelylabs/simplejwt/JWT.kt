@@ -5,7 +5,6 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
-import java.util.*
 
 class JWT(private val token: String) {
 
@@ -31,8 +30,9 @@ class JWT(private val token: String) {
         decodeToken()
     }
 
+    @Throws(IllegalArgumentException::class)
     private fun decodeToken() {
-        if (token.isEmpty() || token.count { it == '.' }  != 2) throw IllegalArgumentException("Token is empty or incorrectly formatted")
+        if (token.isEmpty() || token.count { it == '.' }  != 2) throw IllegalArgumentException("Token is empty or formatted incorrectly")
 
         val parts = arrayOf("","","")
         token.split(".").forEachIndexed { index, part ->
