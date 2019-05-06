@@ -4,6 +4,7 @@ import android.util.Base64
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
+import com.iterativelylabs.simplejwt.internal.JWTPayloadDeserializer
 import java.lang.reflect.Type
 
 class JWT(private val token: String) {
@@ -26,7 +27,9 @@ class JWT(private val token: String) {
     }
 
     init {
-        gson = GsonBuilder().registerTypeAdapter(JWTPayload::class.java, JWTPayloadDeserializer()).create()
+        gson = GsonBuilder().registerTypeAdapter(JWTPayload::class.java,
+            JWTPayloadDeserializer()
+        ).create()
         decodeToken()
     }
 
