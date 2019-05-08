@@ -9,6 +9,21 @@ import java.util.*
 @RunWith(AndroidJUnit4::class)
 class JWTTest {
 
+    @Test(expected = IllegalArgumentException::class)
+    fun `test empty token handling`() {
+        JWT("")
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun `test token with incorrect format handling`() {
+        JWT(".")
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun `test token with missing signature handling`() {
+        JWT("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3ZjcyN2ZjNy05OWE2LTRiOTMtYTljZi1mYTg0MTc2Mjk2ZmEiLCJpYXQiOjE1NTc0Nzk4ODB9.")
+    }
+
     @Test
     fun `test HS256 JWT token with no private claims`() {
         val tokenString = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3ZjcyN2ZjNy05OWE2LTRiOTMtYTljZi1mYTg0MTc2Mjk2ZmEiLCJpYXQiOjE1NTc0Nzk4ODB9.qdwAtmsTuo87rOOIX73Ea07JdvH8y6B6_RsOjrN0R9I"

@@ -1,14 +1,16 @@
-package com.iterativelylabs.simplejwt
+package com.iterativelylabs.simplejwt.internal
 
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
 import java.lang.reflect.Type
 import com.google.gson.JsonObject
+import com.iterativelylabs.simplejwt.JWTClaim
+import com.iterativelylabs.simplejwt.JWTPayload
 import java.util.*
 
 
-class JWTPayloadDeserializer : JsonDeserializer<JWTPayload> {
+internal class JWTPayloadDeserializer : JsonDeserializer<JWTPayload> {
 
     private val RegisteredClaimNames = listOf("iss", "sub", "exp", "nbf", "iat", "jti", "aud")
 
@@ -35,7 +37,16 @@ class JWTPayloadDeserializer : JsonDeserializer<JWTPayload> {
                 }
             }
 
-            payload = JWTPayload(issuer, subject, expiresAt, notBefore, issuedAt, tokenId, listOf(), claims.toMap())
+            payload = JWTPayload(
+                issuer,
+                subject,
+                expiresAt,
+                notBefore,
+                issuedAt,
+                tokenId,
+                listOf(),
+                claims.toMap()
+            )
         }
 
         return payload
